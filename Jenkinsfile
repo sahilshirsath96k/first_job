@@ -7,7 +7,7 @@ pipeline {
       stage('checkout') {
         steps {
             checkout scm
-      }
+      }}
       stage('Build'){
           steps {
               sh 'echo Building'
@@ -28,6 +28,5 @@ pipeline {
         
     }
   }
-    }
 }
-}
+
