@@ -1,23 +1,35 @@
 pipeline {
     agent any
+    
     stages {
-        
-        stage('Build') {
+        stage('Checkout') {
             steps {
-                echo 'Builing the Project' 
+                git url: 'https://github.com/example/app.git'
             }
         }
-        
-        stage('Test') {
+        stage('Build') {
             steps {
-                echo 'Testing the Build'
+                sh 'npm install'
+                sh 'npm run build'
+            }
+        }
+            
+        stage('Parallel Tests') {
+            parallel {
+                stage('Unit Tests')
+                steps { sh 'npm test' }
+            }
+        }
+            
+        stage('Lint') {
+            steps { 
+                sh 'npm run lint' 
             }
         }
     }
-    
     post {
-        success() {
-            echo 'succeded'
+        always {
+            sh 'rm -rf workspace/*'
         }
     }
 }
