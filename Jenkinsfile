@@ -1,37 +1,23 @@
 pipeline {
     agent any
-
-    environment {
-        APP_ENV = 'test'
-    }
-
     stages {
-        stage('Checkout') {
-            steps {
-                checkout scm
-            }
-        }
-
+        
         stage('Build') {
             steps {
-                sh 'echo Building'
+                echo 'Builing the Project' 
             }
         }
-
+        
         stage('Test') {
             steps {
-                sh 'echo Running tests'
+                echo 'Testing the Build'
             }
         }
     }
-
+    
     post {
-        success {
-            echo 'All stages passed'
-        }
-
-        failure {
-            echo 'Something Failed'
+        success() {
+            echo 'succeded'
         }
     }
 }
