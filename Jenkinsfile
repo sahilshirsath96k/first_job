@@ -16,10 +16,13 @@ pipeline {
             
         stage('Parallel Tests') {
             parallel {
-                stage('Unit Tests')
-                steps { sh 'npm test' }
+                stage('Unit Tests') {
+                    steps { 
+                        sh 'npm test' 
+                    }
             }
         }
+    }
             
         stage('Lint') {
             steps { 
