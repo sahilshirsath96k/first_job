@@ -20,7 +20,7 @@ pipeline {
             steps { input message: 'Deploy to production?' }
         }
         
-        stage('Deploy') { steps { sh 'echo Deploying to ${params.ENVIRONMENT}' } }
+        stage('Deploy') { steps { sh "echo Deploying to ${params.ENVIRONMENT}" } }
         
     }
 }
