@@ -8,7 +8,7 @@ pipeline {
         }
         stage('Approve') {
             steps {
-                input message : 'Test passed. Deploy to production'
+                input message: 'Test passed. Deploy to production'
             }
         }
         stage('Deploy') {
