@@ -1,38 +1,15 @@
 pipeline {
-    agent any
-    
+    agent any tests
+    parameters {
+    string(name: 'VERSION', defaultValue: '1.0', description: 'Version to deploy')
+    choice(name: 'ENVIRONMENT', choice: ['staging', 'production'], description: 'Target')
+    booleanParam(name: 'SKIP_TESTS', defaultValue: false, description: 'Skip tests?')
+    }
     stages {
-        stage('Checkout') {
-            steps {
-                git url: 'https://github.com/sahilshirsath96k/first_job.git'
-            }
-        }
         stage('Build') {
             steps {
-                sh 'npm install'
-                sh 'npm run build'
+                echo 'Building'
             }
-        }
-            
-        stage('Parallel Tests') {
-            parallel {
-                stage('Unit Tests') {
-                    steps { 
-                        sh 'npm test' 
-                    }
-            }
-        }
-    }
-            
-        stage('Lint') {
-            steps { 
-                sh 'npm run lint' 
-            }
-        }
-    }
-    post {
-        always {
-            sh 'rm -rf workspace/*'
         }
     }
 }
